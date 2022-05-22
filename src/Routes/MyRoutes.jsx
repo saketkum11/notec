@@ -10,7 +10,7 @@ import {
   Trash,
 } from "../Pages";
 import Mockman from "mockman-js";
-const MyRoute = () => {
+const MyRoutes = () => {
   return (
     <>
       <Routes>
@@ -61,4 +61,4 @@ const MyRoute = () => {
     </>
   );
 };
-export { MyRoute };
+export { MyRoutes };
