@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
     setUserData({ ...userData, token: localStorage.clear(), isAuth: false });
     navigate("/");
   };
-  console.log("data from auth context", userData);
+
   return (
     <AuthContext.Provider
       value={{ signup, login, logout, token, isAuth, isLoading }}

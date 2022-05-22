@@ -9,5 +9,3 @@ export { Signup } from "../Pages/Auth/Signup";
 /* Component */
 export { Card } from "../Component/Card/Card";
 export { Header } from "../Component/Header/Header";
-export { RequireAuth } from "../Context/Auth-context/RequireAuth";
-export { MyRoutes } from "../Routes/MyRoutes";

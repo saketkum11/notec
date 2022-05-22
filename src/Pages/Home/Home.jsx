@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import ReactQuill from "react-quill";
+import { Card } from "../../Component/Card/Card";
 
 const Home = () => {
   return (

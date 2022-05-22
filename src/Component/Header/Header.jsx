@@ -48,7 +48,7 @@ const Header = () => {
                   <span>logout</span>
                 </button>
               ) : (
-                <Link className="nav-link " to="/signin">
+                <Link className="nav-link " to="/login">
                   Login
                 </Link>
               )}
