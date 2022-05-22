@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import ReactQuill from "react-quill";
 import { Card } from "../../Component/Card/Card";
-
+import "react-quill/dist/quill.snow.css";
 const Home = () => {
   return (
     <>
