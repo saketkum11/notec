@@ -1,0 +1,10 @@
+@media screen and (max-width: 600px)  {
+    .group{
+        display: flex;
+        
+    }
+    .side-bar{
+        width: 100%;
+    }
+    
+}
