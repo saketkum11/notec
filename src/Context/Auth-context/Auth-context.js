@@ -19,7 +19,8 @@ const AuthProvider = ({ children }) => {
         firstName,
         lastName,
       });
-      console.log("from signup auth", response);
+      localStorage("token", response.data.encodedToken);
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -47,7 +48,7 @@ const AuthProvider = ({ children }) => {
       isAuth: false,
     });
   };
-  console.log("from auth-context", userData);
+
   return (
     <AuthContext.Provider value={{ login, token, isAuth, signup, logout }}>
       {children}
