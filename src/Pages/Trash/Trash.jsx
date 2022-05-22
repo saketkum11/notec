@@ -1,7 +1,9 @@
+import { Card } from "../../Component/Card/Card";
+
 const Trash = () => {
   return (
     <>
-      <h1>This is Trash Page</h1>
+      <Card />
     </>
   );
 };

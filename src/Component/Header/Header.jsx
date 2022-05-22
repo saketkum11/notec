@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../Context/Auth-context/Auth-context";
 
 const Header = () => {
+  const { isAuth, logout } = useAuth();
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -35,10 +37,8 @@ const Header = () => {
               <Link className="nav-link " to="/label">
                 Label
               </Link>
-              <Link className="nav-link " to="/login">
-                login
-              </Link>
-              {/*isAuth ? (
+
+              {isAuth ? (
                 <button
                   onClick={() => {
                     logout();
@@ -52,7 +52,7 @@ const Header = () => {
                 <Link className="nav-link " to="/login">
                   Login
                 </Link>
-              )*/}
+              )}
               <button className="rounded " type="button">
                 <span>Create Note</span>
               </button>

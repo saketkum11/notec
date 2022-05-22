@@ -1,7 +1,9 @@
+import { Card } from "../../Component/Card/Card";
+
 const Archive = () => {
   return (
     <>
-      <h1>This is Archive pages</h1>
+      <Card />
     </>
   );
 };

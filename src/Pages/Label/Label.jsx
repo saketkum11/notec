@@ -1,7 +1,9 @@
+import { Card } from "../../Component/Card/Card";
+
 const Label = () => {
   return (
     <>
-      <h1>This is label</h1>
+      <Card />
     </>
   );
 };

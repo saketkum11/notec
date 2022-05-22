@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import ReactQuill from "react-quill";
-import { Card } from "../../Component/Card/Card";
+
 import "react-quill/dist/quill.snow.css";
+import { Card } from "../../Component/Card/Card";
 const Home = () => {
   return (
     <>
@@ -27,7 +28,7 @@ const Home = () => {
         </div>
       </div>
       <main className="d-flex justify-content-center">
-        <Card></Card>
+        <Card />
       </main>
       <footer></footer>
     </>
