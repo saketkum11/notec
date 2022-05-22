@@ -19,9 +19,7 @@ const Login = () => {
           }}
         >
           <div className="mb-3">
-            <label for="exampleFormControlInput1" className="form-label">
-              Email address
-            </label>
+            <label className="form-label">Email address</label>
             <input
               onChange={(event) => {
                 setData({ ...data, email: event.target.value });
@@ -32,9 +30,7 @@ const Login = () => {
             />
           </div>
           <div className="mb-3">
-            <label for="exampleFormControlInput1" className="form-label">
-              Password
-            </label>
+            <label className="form-label">Password</label>
             <input
               onChange={(event) => {
                 setData({ ...data, password: event.target.value });
