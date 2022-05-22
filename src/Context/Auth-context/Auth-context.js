@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
         firstName,
         lastName,
       });
-      localStorage("token", response.data.encodedToken);
+      localStorage.setItem("token", response.data.encodedToken);
       navigate("/");
     } catch (error) {
       console.error(error);
@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
         email,
         password,
       });
-
+      localStorage.setItem("token", response.data.encodedToken);
       setUserData({
         ...userData,
         token: response.data.encodedToken,
