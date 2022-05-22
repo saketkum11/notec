@@ -3,5 +3,8 @@ export { Profile } from "../Pages/Profile/Proflie";
 export { Trash } from "../Pages/Trash/Trash";
 export { Archive } from "../Pages/Archive/Archive";
 export { Label } from "../Pages/Label/Label";
+export { Login } from "../Pages/Auth/Login";
+export { Signup } from "../Pages/Auth/Signup";
+
 /* Component */
 export { Card } from "../Component/Card/Card";
