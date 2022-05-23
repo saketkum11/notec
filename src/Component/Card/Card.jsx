@@ -1,29 +1,34 @@
 import { useState } from "react";
+import Moment from "react-moment";
+import { useNote } from "../../Context/Note-context/Note-context";
 import { ColorPalette } from "../Colorpalette/ColorPalette";
 import { Preference } from "../Preference/Preference";
 import { Tags } from "../Tag/Tags";
 import "./Card.css";
-const Card = ({ note, noteData, setNoteData }) => {
+
+const Card = ({ note }) => {
   const [cardFlag, setCardFlag] = useState({
     color: false,
     preference: false,
     tags: false,
   });
   const { tags, color, preference, noteMessage } = note;
+  const { deleteNote, indiviualNotes } = useNote();
   return (
     <>
       <div className={`card w-20  text-bg-${color}`}>
-        <div className="card-body d-flex flex-column justify-content-start">
-          <h5 className="card-title">{preference}</h5>
-
-          {tags.map((label) => {
-            return (
-              <>
-                <span class="badge text-bg-success">{label}</span>
-              </>
-            );
-          })}
-
+        <div className="card-body d-flex flex-column justify-content-end h-100  align-items-start">
+          <span className="card-title">{preference}</span>
+          <div className="d-flex ">
+            {tags.map((label) => {
+              return (
+                <>
+                  <span class="badge text-bg-light me-2">{label}</span>
+                </>
+              );
+            })}
+          </div>
+          <Moment fromNow></Moment>
           <p className="card-text">{noteMessage}</p>
 
           <div className="d-flex justify-content-between mt-4 container position-relative">
@@ -83,7 +88,9 @@ const Card = ({ note, noteData, setNoteData }) => {
                 <i class="fa-solid fa-pen-to-square"></i>
               </button>
               <button
-                onClick={() => setToastFlag((flag) => !flag)}
+                onClick={() => {
+                  deleteNote(note);
+                }}
                 type="button"
                 className="btn btn-secondary me-2"
                 title="Trash"
@@ -95,15 +102,9 @@ const Card = ({ note, noteData, setNoteData }) => {
               </button>
             </div>
             <div className="position-absolute top-100 mt-2 z-index-1 ">
-              {cardFlag.color && (
-                <ColorPalette noteData={noteData} setNoteData={setNoteData} />
-              )}
-              {cardFlag.tags && (
-                <Tags noteData={noteData} setNoteData={setNoteData} />
-              )}
-              {cardFlag.preference && (
-                <Preference noteData={noteData} setNoteData={setNoteData} />
-              )}
+              {cardFlag.color && <ColorPalette note={note} />}
+              {cardFlag.tags && <Tags note={note} />}
+              {cardFlag.preference && <Preference note={note} />}
             </div>
           </div>
         </div>

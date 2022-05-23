@@ -14,6 +14,12 @@ const NoteProvider = ({ children }) => {
     notes: [],
     archive: [],
     trash: [],
+    individualNote: {
+      noteMessage: [],
+      color: [],
+      preference: [],
+      tags: [],
+    },
   };
   const [noteState, noteDispatch] = useReducer(noteReducer, initalState);
   useEffect(() => {
@@ -55,10 +61,50 @@ const NoteProvider = ({ children }) => {
       console.error(error);
     }
   };
+  const indiviualNotes = async (note) => {
+    try {
+      const response = await axios.post(
+        `/api/notes/${note._id}`,
+        { note },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      console.log("from indiviudal notes", response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const deleteNote = async (note) => {
+    try {
+      const response = await axios.delete(`/api/notes/${note._id}`, {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log("deleted from note", response);
+      noteDispatch({
+        type: ACTION_TYPE.REMOVE_NOTE,
+        payload: response.data.notes,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   console.log("from notes context state", noteState);
   return (
-    <NoteContext.Provider value={{ createNotes, noteState, noteDispatch }}>
+    <NoteContext.Provider
+      value={{
+        createNotes,
+        noteState,
+        noteDispatch,
+        indiviualNotes,
+        deleteNote,
+      }}
+    >
       {children}
     </NoteContext.Provider>
   );

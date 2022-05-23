@@ -7,17 +7,14 @@ import { useNote } from "../../Context/Note-context/Note-context";
 import { ColorPalette } from "../../Component/Colorpalette/ColorPalette";
 import { Preference } from "../../Component/Preference/Preference";
 import { Tags } from "../../Component/Tag/Tags";
+import { ACTION_TYPE } from "../../Reducer/service";
 
 const Home = () => {
   const { createNotes } = useNote();
   const { noteState, noteDispatch } = useNote();
   const { notes } = noteState;
-  const [noteData, setNoteData] = useState({
-    noteMessage: "",
-    color: "",
-    preference: "",
-    tags: [],
-  });
+  const { individualNote } = noteState;
+
   const [flag, setFlag] = useState({
     colorFlag: false,
     preference: false,
@@ -30,7 +27,7 @@ const Home = () => {
         <form
           onSubmit={(event) => {
             event.preventDefault();
-            createNotes(noteData);
+            createNotes(individualNote);
           }}
           className="card-body"
         >
@@ -39,7 +36,7 @@ const Home = () => {
 
           <ReactQuill
             onChange={(event) => {
-              setNoteData({ ...noteData, noteMessage: event });
+              noteDispatch({ type: ACTION_TYPE.NOTE_MESSAGE, payload: event });
             }}
             theme="snow"
             placeholder="write note"
@@ -101,15 +98,9 @@ const Home = () => {
               </button>
             </div>
             <div className="position-absolute top-100 mt-2 z-index-1 ">
-              {flag.colorFlag && (
-                <ColorPalette noteData={noteData} setNoteData={setNoteData} />
-              )}
-              {flag.tags && (
-                <Tags noteData={noteData} setNoteData={setNoteData} />
-              )}
-              {flag.preference && (
-                <Preference noteData={noteData} setNoteData={setNoteData} />
-              )}
+              {flag.colorFlag && <ColorPalette />}
+              {flag.tags && <Tags />}
+              {flag.preference && <Preference />}
             </div>
           </div>
         </form>
@@ -119,12 +110,7 @@ const Home = () => {
           {notes.map((note) => {
             return (
               <>
-                <Card
-                  key={note._id}
-                  note={note}
-                  noteData={noteData}
-                  setNoteData={setNoteData}
-                />
+                <Card key={note._id} note={note} />
               </>
             );
           })}

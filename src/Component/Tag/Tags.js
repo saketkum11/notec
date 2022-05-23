@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNote } from "../../Context/Note-context/Note-context";
+import { ACTION_TYPE } from "../../Reducer/service";
 
 const Tags = ({ setNoteData, noteData }) => {
   const [label, setLabel] = useState("");
+  const { noteState, noteDispatch } = useNote();
   return (
     <>
       <div className="input-group mb-3">
@@ -18,9 +21,9 @@ const Tags = ({ setNoteData, noteData }) => {
         />
         <button
           onClick={() =>
-            setNoteData({
-              ...noteData,
-              tags: [...noteData.tags, label],
+            noteDispatch({
+              type: ACTION_TYPE.ADD_TAG,
+              payload: label,
             })
           }
           className="btn btn-outline-secondary"

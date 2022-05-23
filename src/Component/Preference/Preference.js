@@ -1,5 +1,9 @@
+import { useNote } from "../../Context/Note-context/Note-context";
+import { ACTION_TYPE } from "../../Reducer/service";
+
 const Preference = ({ noteData, setNoteData }) => {
   const preferenceList = ["High", "Medium", "Low"];
+  const { noteState, noteDispatch } = useNote();
   return (
     <>
       <div
@@ -12,11 +16,14 @@ const Preference = ({ noteData, setNoteData }) => {
             <>
               <input
                 onClick={(event) => {
-                  setNoteData({ ...noteData, preference: event.target.value });
+                  noteDispatch({
+                    type: ACTION_TYPE.ADD_PREFRENCE,
+                    payload: event.target.value,
+                  });
                 }}
                 key={preference}
                 type="radio"
-                className="btn-check"
+                className="btn-check btn-primary"
                 name={preference}
                 id={preference}
                 autoComplete="off"
