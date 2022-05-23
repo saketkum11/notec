@@ -7,9 +7,13 @@ const noteReducer = (state, { type, payload }) => {
         ...state,
         notes: payload,
       };
-
+    case ACTION_TYPE.CREATED_NOTES:
+      return {
+        ...state,
+        notes: payload,
+      };
     default:
-      break;
+      return state;
   }
 };
 export { noteReducer };

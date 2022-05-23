@@ -10,18 +10,20 @@ import { Tags } from "../../Component/Tag/Tags";
 
 const Home = () => {
   const { createNotes } = useNote();
+  const { noteState, noteDispatch } = useNote();
+  const { notes } = noteState;
   const [noteData, setNoteData] = useState({
-    note: "",
+    noteMessage: "",
     color: "",
-    prefernce: [],
+    preference: "",
+    tags: [],
   });
   const [flag, setFlag] = useState({
     colorFlag: false,
     preference: false,
     tags: false,
   });
-  console.log("flags", flag.colorFlag);
-  console.log("from note page", noteData);
+
   return (
     <>
       <div className="card w-50 mt-5 m-auto">
@@ -37,7 +39,7 @@ const Home = () => {
 
           <ReactQuill
             onChange={(event) => {
-              setNoteData({ ...noteData, note: event });
+              setNoteData({ ...noteData, noteMessage: event });
             }}
             theme="snow"
             placeholder="write note"
@@ -99,16 +101,36 @@ const Home = () => {
               </button>
             </div>
             <div className="position-absolute top-100 mt-2 z-index-1 ">
-              {flag.colorFlag && <ColorPalette />}
-              {flag.tags && <Tags />}
-              {flag.preference && <Preference />}
+              {flag.colorFlag && (
+                <ColorPalette noteData={noteData} setNoteData={setNoteData} />
+              )}
+              {flag.tags && (
+                <Tags noteData={noteData} setNoteData={setNoteData} />
+              )}
+              {flag.preference && (
+                <Preference noteData={noteData} setNoteData={setNoteData} />
+              )}
             </div>
           </div>
         </form>
       </div>
-      <main className=" container">
-        <Card />
+      <main className=" container mt-5">
+        <section className="d-flex  mt-5 flex-wrap group justify-content-start gap-3">
+          {notes.map((note) => {
+            return (
+              <>
+                <Card
+                  key={note._id}
+                  note={note}
+                  noteData={noteData}
+                  setNoteData={setNoteData}
+                />
+              </>
+            );
+          })}
+        </section>
       </main>
+
       <footer></footer>
     </>
   );

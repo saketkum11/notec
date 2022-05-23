@@ -1,19 +1,28 @@
-const ColorPalette = () => {
+const ColorPalette = ({ setNoteData, noteData }) => {
+  const colorList = ["primary", "secondary", "success", "warning"];
   return (
     <>
       <div className="btn-group me-2" role="group" aria-label="First group">
-        <button type="button" className="btn btn-primary">
-          1
-        </button>
-        <button type="button" className="btn btn-primary">
-          2
-        </button>
-        <button type="button" className="btn btn-primary">
-          3
-        </button>
-        <button type="button" className="btn btn-primary">
-          4
-        </button>
+        {colorList.map((color) => {
+          return (
+            <>
+              <button
+                onClick={() => {
+                  setNoteData({
+                    ...noteData,
+                    color: color,
+                  });
+                }}
+                key={color}
+                type="button"
+                className={`btn btn-${color}`}
+                value={color}
+              >
+                {color}
+              </button>
+            </>
+          );
+        })}
       </div>
     </>
   );

@@ -1,4 +1,5 @@
 const ACTION_TYPE = {
   GET_NOTES: "GET_NOTES",
+  CREATED_NOTES: "CREATED_NOTES",
 };
 export { ACTION_TYPE };

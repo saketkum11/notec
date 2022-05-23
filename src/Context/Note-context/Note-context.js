@@ -12,8 +12,6 @@ const NoteProvider = ({ children }) => {
 
   const initalState = {
     notes: [],
-    color: [],
-    label: [],
     archive: [],
     trash: [],
   };
@@ -48,6 +46,10 @@ const NoteProvider = ({ children }) => {
           },
         }
       );
+      noteDispatch({
+        type: ACTION_TYPE.CREATED_NOTES,
+        payload: response.data.notes,
+      });
       console.log("from createnotes notes-context", response);
     } catch (error) {
       console.error(error);
@@ -56,7 +58,7 @@ const NoteProvider = ({ children }) => {
 
   console.log("from notes context state", noteState);
   return (
-    <NoteContext.Provider value={{ items: 0, createNotes }}>
+    <NoteContext.Provider value={{ createNotes, noteState, noteDispatch }}>
       {children}
     </NoteContext.Provider>
   );
