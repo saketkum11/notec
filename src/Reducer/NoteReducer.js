@@ -46,6 +46,22 @@ const noteReducer = (state, { type, payload }) => {
           color: payload,
         },
       };
+    case ACTION_TYPE.UPDATE_SINGLE_NOTE:
+      return {
+        ...state,
+        notes: payload,
+      };
+
+    case ACTION_TYPE.CLEAR:
+      return {
+        ...state,
+        individualNote: {
+          tags: "",
+          color: "",
+          noteMessage: "",
+          preference: "",
+        },
+      };
     default:
       return state;
   }

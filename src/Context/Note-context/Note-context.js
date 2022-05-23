@@ -15,9 +15,9 @@ const NoteProvider = ({ children }) => {
     archive: [],
     trash: [],
     individualNote: {
-      noteMessage: [],
-      color: [],
-      preference: [],
+      noteMessage: "",
+      color: "",
+      preference: "",
       tags: [],
     },
   };
@@ -61,7 +61,7 @@ const NoteProvider = ({ children }) => {
       console.error(error);
     }
   };
-  const indiviualNotes = async (note) => {
+  const singleNotes = async (note) => {
     try {
       const response = await axios.post(
         `/api/notes/${note._id}`,
@@ -73,6 +73,10 @@ const NoteProvider = ({ children }) => {
         }
       );
       console.log("from indiviudal notes", response);
+      noteDispatch({
+        type: ACTION_TYPE.UPDATE_SINGLE_NOTE,
+        payload: response.data.notes,
+      });
     } catch (error) {
       console.error(error);
     }
@@ -101,7 +105,7 @@ const NoteProvider = ({ children }) => {
         createNotes,
         noteState,
         noteDispatch,
-        indiviualNotes,
+        singleNotes,
         deleteNote,
       }}
     >

@@ -10,8 +10,7 @@ import { Tags } from "../../Component/Tag/Tags";
 import { ACTION_TYPE } from "../../Reducer/service";
 
 const Home = () => {
-  const { createNotes } = useNote();
-  const { noteState, noteDispatch } = useNote();
+  const { noteState, noteDispatch, createNotes } = useNote();
   const { notes } = noteState;
   const { individualNote } = noteState;
 
@@ -31,8 +30,7 @@ const Home = () => {
           }}
           className="card-body"
         >
-          <h5 className="card-title">Card title</h5>
-          <h6 className="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <h5 className="card-title">Create Notes</h5>
 
           <ReactQuill
             onChange={(event) => {
@@ -87,7 +85,11 @@ const Home = () => {
             </div>
             <div className="d-flex justify-content-end container">
               <button
-                onClick={() => setToastFlag((flag) => !flag)}
+                onClick={() =>
+                  noteDispatch({
+                    type: ACTION_TYPE.CLEAR,
+                  })
+                }
                 type="button"
                 className="btn btn-secondary me-2"
               >
@@ -106,7 +108,7 @@ const Home = () => {
         </form>
       </div>
       <main className=" container mt-5">
-        <section className="d-flex  mt-5 flex-wrap group justify-content-start gap-3">
+        <section className="d-flex  mt-5 flex-wrap group justify-content-center gap-3">
           {notes.map((note) => {
             return (
               <>

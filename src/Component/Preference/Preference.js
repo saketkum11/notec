@@ -1,9 +1,11 @@
 import { useNote } from "../../Context/Note-context/Note-context";
 import { ACTION_TYPE } from "../../Reducer/service";
 
-const Preference = ({ noteData, setNoteData }) => {
+const Preference = ({ note }) => {
   const preferenceList = ["High", "Medium", "Low"];
-  const { noteState, noteDispatch } = useNote();
+  const { noteState, noteDispatch, singleNotes } = useNote();
+
+  console.log("from preference", note);
   return (
     <>
       <div
@@ -16,6 +18,7 @@ const Preference = ({ noteData, setNoteData }) => {
             <>
               <input
                 onClick={(event) => {
+                  singleNotes({ ...note, preference: preference });
                   noteDispatch({
                     type: ACTION_TYPE.ADD_PREFRENCE,
                     payload: event.target.value,

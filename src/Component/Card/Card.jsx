@@ -12,24 +12,24 @@ const Card = ({ note }) => {
     preference: false,
     tags: false,
   });
-  const { tags, color, preference, noteMessage } = note;
-  const { deleteNote, indiviualNotes } = useNote();
+  console.log("from card component", note);
+  const { deleteNote } = useNote();
   return (
     <>
-      <div className={`card w-20  text-bg-${color}`}>
+      <div className={`card w-20  text-bg-${note.color}`}>
         <div className="card-body d-flex flex-column justify-content-end h-100  align-items-start">
-          <span className="card-title">{preference}</span>
+          <span className="card-title">{note.preference}</span>
           <div className="d-flex ">
-            {tags.map((label) => {
+            {note.tags.map((label) => {
               return (
                 <>
-                  <span class="badge text-bg-light me-2">{label}</span>
+                  <span className="badge text-bg-light me-2">{label}</span>
                 </>
               );
             })}
           </div>
           <Moment fromNow></Moment>
-          <p className="card-text">{noteMessage}</p>
+          <p className="card-text">{note.noteMessage}</p>
 
           <div className="d-flex justify-content-between mt-4 container position-relative">
             <div
@@ -85,7 +85,7 @@ const Card = ({ note }) => {
                 className="btn btn-secondary me-2"
                 title="Edit"
               >
-                <i class="fa-solid fa-pen-to-square"></i>
+                <i className="fa-solid fa-pen-to-square"></i>
               </button>
               <button
                 onClick={() => {
@@ -95,10 +95,7 @@ const Card = ({ note }) => {
                 className="btn btn-secondary me-2"
                 title="Trash"
               >
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
-              <button type="submit" className="btn btn-light">
-                Create note
+                <i className="fa-solid fa-trash-can"></i>
               </button>
             </div>
             <div className="position-absolute top-100 mt-2 z-index-1 ">
