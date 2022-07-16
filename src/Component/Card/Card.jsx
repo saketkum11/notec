@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Moment from "react-moment";
 import { useNote } from "../../Context/Note-context/Note-context";
 import { ColorPalette } from "../Colorpalette/ColorPalette";
 import { Modal } from "../Modal/Modal";
@@ -15,7 +14,6 @@ const Card = ({ note, setNote }) => {
     tags: false,
     toastFlag: false,
   });
-  console.log("from card component", note);
   const { deleteNote } = useNote();
   return (
     <>

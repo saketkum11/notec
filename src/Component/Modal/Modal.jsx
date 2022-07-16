@@ -14,7 +14,6 @@ const Modal = ({ note }) => {
   });
   const [updateNote, setUpdateNote] = useState({ ...note });
   const { noteState, noteDispatch, updateNotes } = useNote();
-  console.log("from modal", updateNote);
   return (
     <>
       <div
@@ -91,7 +90,6 @@ const Modal = ({ note }) => {
                 )}
                 <button
                   onClick={() => {
-                    console.log("clicked");
                     setUpdateFlag({
                       ...updateFlag,
                       colors: !updateFlag.colors,

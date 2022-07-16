@@ -28,7 +28,6 @@ const Home = () => {
     date: Date(),
   });
 
-  console.log("Note from home", note);
   useEffect(() => {
     getNotes();
   }, []);

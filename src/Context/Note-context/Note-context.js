@@ -24,7 +24,6 @@ const NoteProvider = ({ children }) => {
           authorization: token,
         },
       });
-      console.log("from getAllNotes", response.data);
       noteDispatch({
         type: ACTION_TYPE.GET_NOTES,
         payload: response.data.notes,
@@ -49,7 +48,6 @@ const NoteProvider = ({ children }) => {
         type: ACTION_TYPE.CREATED_NOTES,
         payload: response.data.notes,
       });
-      console.log("from createnotes notes-context", response);
     } catch (error) {
       console.error(error);
     }
@@ -65,7 +63,6 @@ const NoteProvider = ({ children }) => {
           },
         }
       );
-      console.log("from indiviudal notes", response);
       noteDispatch({
         type: ACTION_TYPE.UPDATE_SINGLE_NOTE,
         payload: response.data.notes,
@@ -81,7 +78,6 @@ const NoteProvider = ({ children }) => {
           authorization: token,
         },
       });
-      console.log("deleted from note", response);
       noteDispatch({
         type: ACTION_TYPE.REMOVE_NOTE,
         payload: response.data.notes,
@@ -91,7 +87,6 @@ const NoteProvider = ({ children }) => {
     }
   };
 
-  console.log("from notes context state", noteState);
   return (
     <NoteContext.Provider
       value={{
