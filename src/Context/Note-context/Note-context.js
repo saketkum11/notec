@@ -14,33 +14,26 @@ const NoteProvider = ({ children }) => {
     notes: [],
     archive: [],
     trash: [],
-    individualNote: {
-      noteMessage: "",
-      color: "",
-      preference: "",
-      tags: [],
-    },
   };
   const [noteState, noteDispatch] = useReducer(noteReducer, initalState);
-  useEffect(() => {
-    const getNotes = async () => {
-      try {
-        const response = await axios.get("/api/notes", {
-          headers: {
-            authorization: token,
-          },
-        });
 
-        noteDispatch({
-          type: ACTION_TYPE.GET_NOTES,
-          payload: response.data.notes,
-        });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getNotes();
-  }, []);
+  const getNotes = async () => {
+    try {
+      const response = await axios.get("/api/notes", {
+        headers: {
+          authorization: token,
+        },
+      });
+      console.log("from getAllNotes", response.data);
+      noteDispatch({
+        type: ACTION_TYPE.GET_NOTES,
+        payload: response.data.notes,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const createNotes = async (note) => {
     try {
       const response = await axios.post(
@@ -61,7 +54,7 @@ const NoteProvider = ({ children }) => {
       console.error(error);
     }
   };
-  const singleNotes = async (note) => {
+  const updateNotes = async (note) => {
     try {
       const response = await axios.post(
         `/api/notes/${note._id}`,
@@ -102,10 +95,11 @@ const NoteProvider = ({ children }) => {
   return (
     <NoteContext.Provider
       value={{
+        getNotes,
         createNotes,
         noteState,
         noteDispatch,
-        singleNotes,
+        updateNotes,
         deleteNote,
       }}
     >

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNote } from "../../Context/Note-context/Note-context";
 import { ACTION_TYPE } from "../../Reducer/service";
 
-const Tags = ({ note }) => {
+const Tags = ({ note, setNote }) => {
   const [label, setLabel] = useState([]);
   const { noteDispatch, singleNotes } = useNote();
   return (
@@ -12,6 +12,7 @@ const Tags = ({ note }) => {
           onChange={(event) => {
             setLabel(event.target.value);
           }}
+          required
           type="text"
           className="form-control"
           placeholder="Add Tags"
@@ -21,10 +22,7 @@ const Tags = ({ note }) => {
         />
         <button
           onClick={() => {
-            noteDispatch({
-              type: ACTION_TYPE.ADD_TAG,
-              payload: label,
-            });
+            setNote({ ...note, tags: [...note.tags, label] });
           }}
           className="btn btn-outline-secondary"
           type="button"

@@ -1,11 +1,6 @@
-import { useNote } from "../../Context/Note-context/Note-context";
-import { ACTION_TYPE } from "../../Reducer/service";
-
-const ColorPalette = ({ note }) => {
+const ColorPalette = ({ note, setNote }) => {
   const colorList = ["primary", "secondary", "success", "warning"];
-  const { noteState, noteDispatch, singleNotes } = useNote();
 
-  console.log("note from color palette", noteState);
   return (
     <>
       <div className="btn-group me-2" role="group" aria-label="First group">
@@ -14,11 +9,7 @@ const ColorPalette = ({ note }) => {
             <>
               <button
                 onClick={() => {
-                  singleNotes({ ...note, color: color });
-                  noteDispatch({
-                    type: ACTION_TYPE.ADD_COLOR,
-                    payload: color,
-                  });
+                  setNote({ ...note, color: color });
                 }}
                 key={color}
                 type="button"

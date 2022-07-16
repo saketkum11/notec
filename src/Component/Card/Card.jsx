@@ -2,25 +2,32 @@ import { useState } from "react";
 import Moment from "react-moment";
 import { useNote } from "../../Context/Note-context/Note-context";
 import { ColorPalette } from "../Colorpalette/ColorPalette";
+import { Modal } from "../Modal/Modal";
 import { Preference } from "../Preference/Preference";
 import { Tags } from "../Tag/Tags";
+import { Toast } from "../Toast/Toast";
 import "./Card.css";
 
-const Card = ({ note }) => {
+const Card = ({ note, setNote }) => {
   const [cardFlag, setCardFlag] = useState({
     color: false,
     preference: false,
     tags: false,
+    toastFlag: false,
   });
   console.log("from card component", note);
   const { deleteNote } = useNote();
   return (
     <>
-      <div className={`card w-20  text-bg-${note.color}`}>
+      <div className={`card w-20  text-bg-${note?.color}`}>
         <div className="card-body d-flex flex-column justify-content-end h-100  align-items-start">
-          <span className="card-title">{note.preference}</span>
+          <h4>{note?.title}</h4>
+          <span className="card-title badge text-bg-light">
+            {note?.priority}
+          </span>
+
           <div className="d-flex ">
-            {note.tags.map((label) => {
+            {note?.tags?.map((label) => {
               return (
                 <>
                   <span className="badge text-bg-light me-2">{label}</span>
@@ -28,8 +35,11 @@ const Card = ({ note }) => {
               );
             })}
           </div>
-          <Moment fromNow></Moment>
-          <p className="card-text">{note.noteMessage}</p>
+          <div>{note.createdAt}</div>
+          <div
+            className=""
+            dangerouslySetInnerHTML={{ __html: note?.description }}
+          ></div>
 
           <div className="d-flex justify-content-between mt-4 container position-relative">
             <div
@@ -44,7 +54,6 @@ const Card = ({ note }) => {
                     tags: !cardFlag.tags,
                   });
                 }}
-                type="button"
                 className="btn btn-secondary"
                 title="Tags"
               >
@@ -58,7 +67,6 @@ const Card = ({ note }) => {
                     color: !cardFlag.color,
                   });
                 }}
-                type="button"
                 className="btn btn-secondary "
                 title="color-palette"
               >
@@ -80,10 +88,11 @@ const Card = ({ note }) => {
             </div>
             <div className="d-flex justify-content-end container">
               <button
-                onClick={() => setToastFlag((flag) => !flag)}
                 type="button"
                 className="btn btn-secondary me-2"
-                title="Edit"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                data-bs-whatever="@fat"
               >
                 <i className="fa-solid fa-pen-to-square"></i>
               </button>
@@ -91,7 +100,6 @@ const Card = ({ note }) => {
                 onClick={() => {
                   deleteNote(note);
                 }}
-                type="button"
                 className="btn btn-secondary me-2"
                 title="Trash"
               >
@@ -102,6 +110,7 @@ const Card = ({ note }) => {
               {cardFlag.color && <ColorPalette note={note} />}
               {cardFlag.tags && <Tags note={note} />}
               {cardFlag.preference && <Preference note={note} />}
+              {<Modal note={note} />}
             </div>
           </div>
         </div>
