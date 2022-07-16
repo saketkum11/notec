@@ -47,7 +47,6 @@ const Login = () => {
             <button
               onClick={() => {
                 setData({
-                  ...data,
                   email: "test123@gmail.com",
                   password: "test123",
                 });

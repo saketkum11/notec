@@ -1,71 +1,118 @@
+import { useState } from "react";
+import { useNote } from "../../Context/Note-context/Note-context";
+import { ColorPalette } from "../Colorpalette/ColorPalette";
+import { Modal } from "../Modal/Modal";
+import { Preference } from "../Preference/Preference";
+import { Tags } from "../Tag/Tags";
+import { Toast } from "../Toast/Toast";
 import "./Card.css";
-const Card = () => {
+
+const Card = ({ note, setNote }) => {
+  const [cardFlag, setCardFlag] = useState({
+    color: false,
+    preference: false,
+    tags: false,
+    toastFlag: false,
+  });
+  const { deleteNote } = useNote();
   return (
     <>
-      <section className="d-flex mt-5 flex-wrap group justify-content-center gap-3">
-        <div className="card w-25">
-          <div className="card-header">Featured</div>
-          <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi,
-              culpa!
-            </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
+      <div className={`card w-20  text-bg-${note?.color}`}>
+        <div className="card-body d-flex flex-column justify-content-end h-100  align-items-start">
+          <h4>{note?.title}</h4>
+          <span className="card-title badge text-bg-light">
+            {note?.priority}
+          </span>
+
+          <div className="d-flex ">
+            {note?.tags?.map((label) => {
+              return (
+                <>
+                  <span className="badge text-bg-light me-2">{label}</span>
+                </>
+              );
+            })}
+          </div>
+          <div>{note.createdAt}</div>
+          <div
+            className=""
+            dangerouslySetInnerHTML={{ __html: note?.description }}
+          ></div>
+
+          <div className="d-flex justify-content-between mt-4 container position-relative">
+            <div
+              className="btn-group me-2  "
+              role="group"
+              aria-label="Second group"
+            >
+              <button
+                onClick={() => {
+                  setCardFlag({
+                    ...cardFlag,
+                    tags: !cardFlag.tags,
+                  });
+                }}
+                className="btn btn-secondary"
+                title="Tags"
+              >
+                <i className="fa-solid fa-tag"></i>
+              </button>
+              <button
+                onClick={() => {
+                  console.log("clicked");
+                  setCardFlag({
+                    ...cardFlag,
+                    color: !cardFlag.color,
+                  });
+                }}
+                className="btn btn-secondary "
+                title="color-palette"
+              >
+                <i className="fa-solid fa-palette"></i>
+              </button>
+              <button
+                onClick={() => {
+                  setCardFlag({
+                    ...cardFlag,
+                    preference: !cardFlag.preference,
+                  });
+                }}
+                type="button"
+                className="btn btn-secondary"
+                title="Preference"
+              >
+                <i className="fa-solid fa-circle-chevron-down"></i>
+              </button>
+            </div>
+            <div className="d-flex justify-content-end container">
+              <button
+                type="button"
+                className="btn btn-secondary me-2"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                data-bs-whatever="@fat"
+              >
+                <i className="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button
+                onClick={() => {
+                  deleteNote(note);
+                }}
+                className="btn btn-secondary me-2"
+                title="Trash"
+              >
+                <i className="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+            <div className="position-absolute top-100 mt-2 z-index-1 ">
+              {cardFlag.color && <ColorPalette note={note} />}
+              {cardFlag.tags && <Tags note={note} />}
+              {cardFlag.preference && <Preference note={note} />}
+              {<Modal note={note} />}
+            </div>
           </div>
         </div>
-        <div className="card w-25">
-          <div className="card-header">Featured</div>
-          <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nisi,
-              itaque!
-            </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-        <div className="card w-25">
-          <div className="card-header">Featured</div>
-          <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Cupiditate sequi ad ab voluptas aliquid illum?
-            </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-        <div className="card w-25">
-          <div className="card-header">Featured</div>
-          <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">Lorem ipsum dolor sit amet.</p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-        <div className="card w-25">
-          <div className="card-header">Featured</div>
-          <div className="card-body">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-              Consequatur architecto facere beatae, quod esse necessitatibus.
-            </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div>
-      </section>
+      </div>
     </>
   );
 };
